@@ -5,3 +5,4 @@ Create list to show food items.
 Using axios to fetch data from api.
 Using react navigation.
 
+npm -i 
