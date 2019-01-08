@@ -9,11 +9,11 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
-
+import FoodListScreen from './screens/FoodListScreen/FoodListScreen';
 export default class App extends Component {
   render() {
     return (
-      <HomeScreen />
+      <FoodListScreen />
     );
   }
 }
