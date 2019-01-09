@@ -19,7 +19,7 @@ export default class AddNewFoodScreen extends Component {
   }
   onSaveFood = () => {
     const { title, cat } = this.state;
-    const url = 'POST_URL';
+    const url = 'https://drpl.info/api/data/add.json';
     console.log(title);
     convate
     axios.post(url, { title, cat, image })
