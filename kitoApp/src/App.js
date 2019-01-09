@@ -9,11 +9,15 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
-import FoodListScreen from './screens/FoodListScreen/FoodListScreen';
+import { createAppContainer } from 'react-navigation';
+
+import Tab from './navigation/TabNav';
 export default class App extends Component {
+  
   render() {
+    const NewApp = createAppContainer(Tab);
     return (
-      <FoodListScreen />
+      <NewApp />
     );
   }
 }

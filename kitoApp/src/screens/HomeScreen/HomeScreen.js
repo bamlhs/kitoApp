@@ -5,6 +5,9 @@ import styles from './HomeScreenStyle';
 import colors from '../../Config';
 
 export default class HomeScreen extends Component {
+    static navigationOptions = {
+        title: "Home Page",
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -20,12 +23,15 @@ export default class HomeScreen extends Component {
                     source={require('../../images/backgroud.jpg')} >
                     <View style={styles.container}>
                         <View style={{ padding: 10, }}><Button
+                            onPress={() => this.props.navigation.navigate('foods')}
                             buttonStyle={{ borderColor: colors.secondColor, borderWidth: 3, borderRadius: 10, }}
                             containerViewStyle={{ width: width / 1.2 }}
                             backgroundColor={colors.baseColor}
                             large title="Show Food Lists" />
                         </View>
                         <View><Button
+                            onPress={() => this.props.navigation.navigator('foods')}
+
                             buttonStyle={{ borderColor: colors.secondColor, borderWidth: 3, borderRadius: 10, }}
                             backgroundColor={colors.baseColor}
                             containerViewStyle={{ width: width / 1.2 }}

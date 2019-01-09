@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { Avatar, ListItem } from 'react-native-elements';
 import axios from 'axios';
+import _ from 'lodash';
+
 
 export default class FoodListScreen extends Component {
   constructor(props) {
@@ -12,7 +14,7 @@ export default class FoodListScreen extends Component {
     this.renderItem = this.renderItem.bind(this);
   }
   componentDidMount() {
-    const url = 'URL';
+    const url = 'https://drpl.info/api/food_items.json?offset=0&count=10';
     axios.get(url)
       .then(resp => this.setState({ data: resp.data }))
       .catch(err => console.log(err));
@@ -20,19 +22,32 @@ export default class FoodListScreen extends Component {
   renderItem = ({ item, index }) => {
     console.log(item);
     return (
-      <View style={{ flexDirection: 'row', }}>
-        <Avatar large source={{ uri: item.thumb }} />
-        <Text>{item.title}</Text>
-      </View>
+      <ListItem 
+      title={item.title} 
+      avatar={{uri: item.thumb}} 
+      roundAvatar 
+      subtitle={item.category.name} />
     );
   }
   render() {
+    console.log(this.state.data.length === 0);
+    
+    if (this.state.data.length === 0 ) {
+      console.log("inisde if");
+      
+      return (
+        <View style={{flex: 1,}}>
+          <Text>...Loading</Text>
+        </View>
+      );
+    }
+    const newData = _.orderBy(this.state.data, ['title'], ['asc'])
     return (
       <View style={{ flex: 1 }}>
         <View></View>
         <View>
           <FlatList
-            data={this.state.data}
+            data={newData}
             renderItem={this.renderItem}
           />
         </View>
