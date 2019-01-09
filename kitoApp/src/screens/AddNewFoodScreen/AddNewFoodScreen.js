@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements'
 import axios from 'axios';
-export default class AddNewFoodScreen extends Component {
+import { connect } from 'react-redux';
+import postData from '../../redux/actions/foodActions';
+
+class AddNewFoodScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,38 +17,21 @@ export default class AddNewFoodScreen extends Component {
   }
   componentDidUpdate() {
     console.log('componentDidUpdate');
-
-
   }
   onSaveFood = () => {
     const { title, cat } = this.state;
-    const url = 'https://drpl.info/api/data/add.json';
+    const url = 'POST_URL';
     console.log(title);
-    convate
-    axios.post(url, { title, cat, image })
+    this.props.postData({ title, cat });
+    axios.post(url, { title, cat })
       .then(resp => console.log(resp)
       )
       .catch(err => {
         this.setState({ error: true })
-      }
-      )
+      });
   }
 
   render() {
-    console.log(this.state.error);
-
-    if (this.state.error) {
-      Alert.alert(
-        'Alert Title',
-        'My Alert Msg',
-        [
-          { text: 'Ask me later', onPress: () => console.log('Ask me later pressed') },
-          { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
-        { cancelable: false }
-      )
-    }
     return (
       <SafeAreaView>
         <FormLabel>Title</FormLabel>
@@ -59,3 +45,7 @@ export default class AddNewFoodScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ foods: state.foods });
+export default connect(mapStateToProps, { postData })(AddNewFoodScreen);
+

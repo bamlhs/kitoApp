@@ -15,7 +15,7 @@ export default class HomeScreen extends Component {
     }
 
     render() {
-        const { width, heigt } = Dimensions.get('window');
+        const { width } = Dimensions.get('window');
         return (
             <View style={styles.container}>
                 <ImageBackground

@@ -14,7 +14,7 @@ export default class FoodListScreen extends Component {
     this.renderItem = this.renderItem.bind(this);
   }
   componentDidMount() {
-    const url = 'https://drpl.info/api/food_items.json?offset=0&count=10';
+    const url = 'URL';
     axios.get(url)
       .then(resp => this.setState({ data: resp.data }))
       .catch(err => console.log(err));
@@ -22,21 +22,21 @@ export default class FoodListScreen extends Component {
   renderItem = ({ item, index }) => {
     console.log(item);
     return (
-      <ListItem 
-      title={item.title} 
-      avatar={{uri: item.thumb}} 
-      roundAvatar 
-      subtitle={item.category.name} />
+      <ListItem
+        title={item.title}
+        avatar={{ uri: item.thumb }}
+        roundAvatar
+        subtitle={item.category.name} />
     );
   }
   render() {
     console.log(this.state.data.length === 0);
-    
-    if (this.state.data.length === 0 ) {
+
+    if (this.state.data.length === 0) {
       console.log("inisde if");
-      
+
       return (
-        <View style={{flex: 1,}}>
+        <View style={{ flex: 1, }}>
           <Text>...Loading</Text>
         </View>
       );

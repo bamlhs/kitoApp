@@ -1,42 +1,27 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import HomeScreen from './screens/HomeScreen/HomeScreen';
+import React, { Component } from 'react';
+import { StyleSheet, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import Tab from './navigation/TabNav';
+import { combineReducers } from 'redux';
+import foods from './redux/reducers/FoodReducer';
+
 export default class App extends Component {
-  
+
   render() {
     const NewApp = createAppContainer(Tab);
+    const reducers = combineReducers({
+      foods: foods,
+    });
+
     return (
-      <NewApp />
+      <Provider store={createStore(reducers, {}, applyMiddleware(logger))}>
+        <NewApp />
+      </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
