@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
@@ -17,9 +17,14 @@ export default class App extends Component {
     const reducers = combineReducers({
       foods: foods,
     });
+    const enhancers = [];
+    const middlewares = [];
+    enhancers.push(applyMiddleware(...middlewares));
+    enhancers.push(applyMiddleware(thunk));
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
     return (
-      <Provider store={createStore(reducers, {}, applyMiddleware(logger))}>
+      <Provider store={createStore(reducers, {}, composeEnhancers(...enhancers))}>
         <NewApp />
       </Provider>
     );
